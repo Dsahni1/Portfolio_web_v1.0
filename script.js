@@ -10,7 +10,7 @@ function ensureProfileImageLoads() {
     
     // Create a test image to verify it loads
     const testImg = new Image();
-    testImg.crossOrigin = 'anonymous';
+    // Removed crossOrigin to avoid CORS issues
     
     testImg.onload = function() {
         console.log('✅ Profile image verified and loaded successfully');
