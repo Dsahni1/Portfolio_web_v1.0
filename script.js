@@ -1,5 +1,46 @@
+// Ensure profile image loads correctly
+function ensureProfileImageLoads() {
+    const profileImg = document.querySelector('.profile-photo');
+    const placeholder = document.querySelector('.profile-placeholder');
+    
+    if (!profileImg) return;
+    
+    // Use the correct image URL from the HTML
+    const imageUrl = 'https://mywebsbucket.s3.us-east-1.amazonaws.com/portfolio_images/2.jpg?v=1.0';
+    
+    // Create a test image to verify it loads
+    const testImg = new Image();
+    testImg.crossOrigin = 'anonymous';
+    
+    testImg.onload = function() {
+        console.log('✅ Profile image verified and loaded successfully');
+        // Image loaded successfully, make sure it's displayed
+        profileImg.style.display = 'block';
+        if (placeholder) {
+            placeholder.style.display = 'none';
+        }
+    };
+    
+    testImg.onerror = function() {
+        console.error('❌ Failed to load profile image, showing placeholder');
+        // Show placeholder if image fails
+        if (placeholder) {
+            profileImg.style.display = 'none';
+            placeholder.style.display = 'flex';
+        }
+    };
+    
+    // Set the source to trigger the load test
+    testImg.src = imageUrl;
+    
+    // Also ensure the main image has the correct source
+    profileImg.src = imageUrl;
+}
+
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    // Ensure profile image loads correctly
+    ensureProfileImageLoads();
     // Get all navigation links
     const navLinks = document.querySelectorAll('.nav-link, .cta-button');
     
