@@ -8,9 +8,9 @@ function ensureProfileImageLoads() {
     // Use the correct image URL from the HTML
     const imageUrl = 'https://mywebsbucket.s3.us-east-1.amazonaws.com/portfolio_images/2.jpg?v=1.0';
     
-    // Create a test image to verify it loads
+
     const testImg = new Image();
-    // Removed crossOrigin to avoid CORS issues
+
     
     testImg.onload = function() {
         console.log('✅ Profile image verified and loaded successfully');
@@ -85,6 +85,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         });
     }
     
@@ -189,50 +197,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Additional CSS for mobile menu (to be added via JavaScript)
-const addMobileMenuStyles = () => {
+// Additional CSS for animations (to be added via JavaScript)
+const addAnimationStyles = () => {
     const style = document.createElement('style');
     style.textContent = `
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                flex-direction: column;
-                background-color: white;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-                padding: 2rem 0;
-            }
-            
-            .nav-menu.active {
-                left: 0;
-            }
-            
-            .nav-menu li {
-                margin: 1rem 0;
-            }
-            
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .hamburger.active span:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            
-            .hamburger.active span:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
-            
-            .nav-link.active {
-                color: #2c5282;
-                font-weight: 600;
-            }
-        }
-        
         .skill-item.animate,
         .project-card.animate {
             animation: slideInUp 0.6s ease forwards;
@@ -252,5 +220,5 @@ const addMobileMenuStyles = () => {
     document.head.appendChild(style);
 };
 
-// Add mobile styles when DOM is loaded
-document.addEventListener('DOMContentLoaded', addMobileMenuStyles);
+// Add animation styles when DOM is loaded
+document.addEventListener('DOMContentLoaded', addAnimationStyles);
